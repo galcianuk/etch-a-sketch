@@ -167,6 +167,6 @@ function reset() {
   const resetdiv = document.querySelectorAll('.test');
   let i;
   for (i = 0; i < resetdiv.length; i++) {
-    resetdiv[i].style.backgroundColor = 'white';
+    resetdiv[i].style.backgroundColor = 'rgb(51, 51, 51)';
   }
 }
