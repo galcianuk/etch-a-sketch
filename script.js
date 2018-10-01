@@ -12,7 +12,6 @@ button.addEventListener("click", captureData);
 clearButton.addEventListener("click", reset);
 
 
-
 //Taken from stackoverflow, I need to figure out how this works!
 Element.prototype.remove = function() {
     this.parentElement.removeChild(this);
@@ -41,24 +40,58 @@ function clearGrid(){
 }
 
 gridtable.className = "gridtable";
+gridtable.id = "gridtable";
 gridContainer.appendChild(gridtable);
 
-window.onload = generateGrid(data);
+
+// window.onload = setWidth();
+
+let browserSize = {
+    width: window.innerWidth || document.body.clientWidth,
+    height: window.innerHeight || document.body.clientHeight
+  }
+
+  let currentBoxWidth;
+
+  window.onload = generateGrid(data);
+  window.onresize = generateGrid(data);
+
+// console.log(browserSize.width);
+
+
+
+
 
 function generateGrid(gsize){
+    browserSize = {
+        width: document.body.clientWidth,
+        height: document.body.clientHeight
+    }
+    
+    document.getElementsByClassName("test").remove();
+
+    setWidth();
+
     gridSize = (gsize * gsize);
-    boxwidth = 798 / gsize;
+    boxwidth = (currentBoxWidth - 2) / gsize;
+    gridtable.style = `height: ${currentBoxWidth}px; width: ${currentBoxWidth}px`;
 
     for(i = 0; i <= (gridSize - 1); i++ ){
         let newdiv = document.createElement("div");
-
-
         gridtable.appendChild(newdiv);
         newdiv.className = "test";
         newdiv.style = `width: ${boxwidth}px; height: ${boxwidth}px`;
     }
-    grid = (gsize * gsize);
-    }
+}
+
+function setWidth (){
+        if (browserSize.width >= 800){
+          currentBoxWidth = 800;
+        }
+        else if (browserSize.width < 800){
+          currentBoxWidth = browserSize.width;
+        }
+  }
 
 let drawing = false;
 let highlightColor = "red";
@@ -113,3 +146,4 @@ function reset(){
         resetdiv[i].style.backgroundColor = "white";
    }
 }
+
